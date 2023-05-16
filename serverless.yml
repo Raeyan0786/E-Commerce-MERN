@@ -1,0 +1,26 @@
+service: 'agrobid'
+app: agrobid
+provider:
+    name: aws
+    runtime: nodejs18.x
+    stage: dev
+    region: ap-south-1
+
+
+functions:
+  app:
+    handler: backend/server.handler
+    name: agrovbid
+    events:
+        - http: 
+            path: /
+            method: ANY
+            cors: true
+        - http:
+            path: /{proxy+}
+            method: ANY
+            cors: true
+
+plugins: 
+  - serverless-offline    
+  - serverless-dotenv-plugin
